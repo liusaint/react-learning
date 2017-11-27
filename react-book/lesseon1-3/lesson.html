@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>lesson1</title>
+</head>
+<body>
+	
+	<div class="like">
+		赞
+	</div>
+
+	<div class="wrapper"></div>
+	
+	<script>
+		//原始方法
+		(function(){
+			var isLiked = true;
+			var dom = document.querySelector('.like');
+			dom.onclick = function(event){
+				var html = '赞';
+				isLiked = !isLiked;
+				if(!isLiked){
+					html = '不赞'
+				}
+				dom.innerHTML = html;
+			}
+		})();
+
+		//组件方法。
+		(function(){
+
+			function createDomFromString(str){
+				var div = document.createElement('div');
+				div.innerHTML = str;
+				return div;
+			}
+			//新版chrome可以直接这样用了。
+			//class中的fn之间不要加逗号。
+			class LikeBtn  {
+				constructor(){
+					this.state = {isLiked:true};
+				}
+				changeLikeTxt(){
+					var likeDom = this.el.querySelector('.like');
+					this.state.isLiked = !this.state.isLiked;
+					likeDom.innerHTML = this.state.isLiked?'赞':'不赞'; 
+				}
+				render(){
+					this.el = createDomFromString('<div class="like">赞</div>');
+					this.el.addEventListener('click',this.changeLikeTxt.bind(this));
+					return this.el;
+				}
+			}
+
+			const wrapper = document.querySelector('.wrapper')
+
+			const likeBtn1 = new LikeBtn()
+			wrapper.appendChild(likeBtn1.render())
+
+			const likeBtn2 = new LikeBtn()
+			wrapper.appendChild(likeBtn2.render())
+
+		})();
+
+
+	</script>
+
+</body>
+</html>
