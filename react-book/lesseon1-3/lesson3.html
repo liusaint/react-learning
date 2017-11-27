@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>lesson3</title>
+</head>
+<body>
+
+	<div class="wrapper"></div>
+	
+	<script>
+
+
+		//抽离公共部分。使多个组件可以共用。
+		//es6的继承。子类的construcor中需要super。
+		//增加了封装wrapper与组件的函数。
+		//规范事件方法名。
+		//
+		(function(){
+
+
+			//尽可能抽离
+			class Component {
+				constructor(props={}){
+					this.props = props;
+				}
+				setState(state){
+					var oldEl = this.el;
+					this.state = state;
+					this.el = this._renderDom();
+					if(this.onStateChange){
+						this.onStateChange(oldEl,this.el);
+					}
+				}
+				_renderDom(){
+					//这样的话render方法就只需要传递模板了。
+					this.el = createDomFromString(this.render());
+					this.el.addEventListener('click',this.onClick.bind(this));
+					return this.el;
+				}
+
+			}
+
+			function createDomFromString(str){
+				var div = document.createElement('div');
+				div.innerHTML = str;
+				return div;
+			}
+
+			function mount(com,wrapper){
+				wrapper.appendChild(com._renderDom())
+				com.onStateChange = (oldEl, newEl) => {
+  					wrapper.insertBefore(newEl, oldEl) // 插入新的元素
+  					wrapper.removeChild(oldEl) // 删除旧的元素				
+  				}
+  			}
+
+
+			//新版chrome可以直接这样用了。
+			//class中的fn之间不要加逗号。
+			class LikeBtn extends Component {
+				constructor(props){
+					super(props);
+					this.state = {isLiked:true};
+				}
+
+				onClick(){
+					this.setState({
+						isLiked:!this.state.isLiked
+					})
+				}
+				render(){
+					return '<div class="like">'+(this.state.isLiked?'赞':'不赞')+'</div>';
+				}
+			}
+
+			const wrapper = document.querySelector('.wrapper')
+
+			const likeBtn1 = new LikeBtn()
+
+			mount(likeBtn1,wrapper);
+
+		})();
+
+
+	</script>
+
+</body>
+</html>
