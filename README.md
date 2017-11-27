@@ -38,4 +38,7 @@ ReactDOM.render(
 * 默认配置 defaultProps。  static defaultProps = {likedText: '取消', unlikedText: '点赞'}。　注意是=号
 * React.js 希望一个组件在输入确定的 props 的时候，能够输出确定的 UI 显示形态。如果 props 渲染过程中可以被修改，那么就会导致这个组件显示形态和行为变得不可预测，这样会可能会给组件使用者带来困惑。
 但这并不意味着由 props 决定的显示形态不能被修改。组件的使用者可以主动地通过重新渲染的方式把新的 props 传入组件当中，这样这个组件中由 props 决定的显示形态也会得到相应的改变。
-* 
+* state 是让组件控制自己的状态，props 是让外部对组件自己进行配置。
+* 尽量少地用 state，尽量多地用 props。
+没有 state 的组件叫无状态组件（stateless component），设置了 state 的叫做有状态组件（stateful component）。因为状态会带来管理的复杂性，我们尽量多地写无状态组件，尽量少地写有状态的组件。
+* 渲染存放 JSX 元素的数组。会依次输出。
