@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 
 
 class CommentInput extends Component {
+  static propTypes = {
+    onSubmit: PropTypes.func
+  }
+
   constructor() {
     super()
     this.state = {
@@ -9,24 +14,38 @@ class CommentInput extends Component {
       content: ''
     }
   }
+
   handleChangeName(event) {
+    var username = event.target.value;
     this.setState({
-      username: event.target.value
+      username: username
     })
+    localStorage.setItem('username',username);
+  }
+  componentWillMount(){
+    var username = localStorage.getItem('username') || '';
+    this.setState({
+      username: username
+    })
+  }
+  componentDidMount(){    
+    this.textarea.focus();
   }
   handleChangeContent(event) {
     this.setState({
       content: event.target.value
     })
   }
-  handleSubmit1(event){
+  handleSubmit(event){
   	if(this.props.onSubmit){
   		var comment = {
   			username:this.state.username,
-  			content:this.state.content
+  			content:this.state.content,
+        time:new Date().getTime()
   		}
   		this.props.onSubmit(comment);
   	}
+    this.setState({'content':''})
   }
   render() {
     return (
@@ -40,11 +59,11 @@ class CommentInput extends Component {
 			<div className='comment-field'>
 			<span className='comment-field-name'>评论内容：</span>
 			<div className='comment-field-input'>
-			<textarea value={this.state.content} onChange={this.handleChangeContent.bind(this)}/>
+			<textarea value={this.state.content} ref={(textarea)=>this.textarea = textarea} onChange={this.handleChangeContent.bind(this)}/>
 			</div>
 			</div>
 			<div className='comment-field-button'>
-			<button onClick={this.handleSubmit1.bind(this)}>
+			<button onClick={this.handleSubmit.bind(this)}>
 			发布
 			</button>
 			</div>
