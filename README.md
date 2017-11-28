@@ -92,3 +92,8 @@ render() 方法。
   }　　
   获取：this.context.themeColor
   设置：this.setState({ themeColor: 'green' })
+
+
+  #### redux
+  * 使用统一的方法来管理全局状态。使得状态变化可追溯，可debug。
+  * 增加修改的难度。
