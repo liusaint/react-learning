@@ -67,3 +67,28 @@ React.js 当中提供了 ref 属性来帮助我们获取已经挂载的元素的
 * 验证。  static propTypes = {comment: PropTypes.object }　　 PropTypes.object.isRequired
 * 虽然 propTypes 帮我们指定了参数类型，但是并没有说这个参数一定要传入，事实上，这些参数默认都是可选的。可选参数我们可以通过配置 defaultProps，让它在不传入的时候有默认值。
 * 循环遍历列表的时候要注意传入的key值得跟数据一一固定对应。如果直接用序号i。可能导致组件内部状态错误。
+* 组件的内容编写顺序如下：
+
+static 开头的类属性，如 defaultProps、propTypes。
+构造函数，constructor。
+getter/setter（还不了解的同学可以暂时忽略）。
+组件生命周期。
+_ 开头的私有方法。
+事件监听方法，handle*。
+render*开头的方法，有时候 render() 方法里面的内容会分开到不同函数里面进行，这些函数都以 render* 开头。
+render() 方法。
+* 组件的私有方法都用 _ 开头，所有事件监听的方法都用 handle 开头。把事件监听方法传给组件的时候，属性名用 on 开头。
+* 高阶组件就是一个函数，传给它一个组件，它返回一个新的组件。装饰者模式。
+* 高阶组件的作用其实不言而喻，其实就是为了组件之间的代码复用。组件可能有着某些相同的逻辑，把这些逻辑抽离出来，放到高阶组件中进行复用。高阶组件内部的包装组件和被包装组件之间通过 props 传递数据。
+* context的使用。父组件的声明。　
+ 　static childContextTypes = {
+    themeColor: PropTypes.string
+  }
+　getChildContext () {
+    return { themeColor: this.state.themeColor }
+  }
+  子组件使用  static contextTypes = {
+    themeColor: PropTypes.string
+  }　　
+  获取：this.context.themeColor
+  设置：this.setState({ themeColor: 'green' })
