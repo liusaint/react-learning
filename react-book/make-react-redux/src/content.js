@@ -1,38 +1,30 @@
 import React, { Component } from 'react';
 import ThemeSwitch from './themeSwitch.js';
 import PropTypes from 'prop-types'
+import connect from './react-reduct.js'
 
 class Content extends Component {
     static contextTypes = {
-        store: PropTypes.object
+        themeColor: PropTypes.string
     }
 
-    constructor() {
-        super()
-        this.state = {
-            themeColor: ''
-        }
-    }
-    componentWillMount() {
-        this._updateThemeColor()
-        var {store} = this.context;
-        store.subscribe(() => this._updateThemeColor())
-    }
-    _updateThemeColor() {
-        var {store} = this.context;
-        var state = store.getState();
-        this.setState({
-            themeColor: state.themeColor
-        })
-    }
     render() {
         return (
-            <div style={{color:this.state.themeColor}}>
+            <div style={{color:this.props.themeColor}}>
 			React.js内容
 			<ThemeSwitch></ThemeSwitch>
 			</div>
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        themeColor: state.themeColor
+    }
+}
+
+Content = connect(mapStateToProps)(Content);
+
 
 export default Content;
