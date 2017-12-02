@@ -37,7 +37,6 @@ const connect = (mapStateToProps, mapDispatchToProps) => (WrappedCom) => {
         }
         render() {
 
-
             return (
                 <div>
                 <WrappedCom {...this.state.allProps} />
@@ -51,3 +50,25 @@ const connect = (mapStateToProps, mapDispatchToProps) => (WrappedCom) => {
 
 
 export default connect;
+
+export class Provider extends Component {
+    static contextTypes = {
+        store: PropTypes.object,
+        children:PropTypes.any
+    }
+    static childContextTypes = {
+        store:PropTypes.object
+    }
+    getChildContext(){
+        return {
+            store:this.props.store
+        }
+    }
+    render(){
+        return (
+            <div>
+            {this.props.children}
+            </div>
+        )
+    }
+}

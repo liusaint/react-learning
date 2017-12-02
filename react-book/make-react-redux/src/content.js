@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ThemeSwitch from './themeSwitch.js';
 import PropTypes from 'prop-types'
-import connect from './react-reduct.js'
+import connect from './react-redux.js'
 
 class Content extends Component {
     static contextTypes = {
