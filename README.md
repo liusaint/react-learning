@@ -116,6 +116,8 @@ render() 方法。
 * 当你有处理多个受控的input元素时，你可以通过给每个元素添加一个name属性，来让处理函数根据 event.target.name的值来选择做什么。this.setState({[name]: value });
 * 尽管有这些警告，如果你还是坚持要使用context，那么尽量将使用context的代码隔离到一小块地方并避免直接使用context API，这样以后API变更的时候更容易升级。
 * props甚至可以传入promise。
+* router:http://www.ruanyifeng.com/blog/2016/05/react_router.html
+  * onEnter钩子还可以用来做认证。
 
 
   #### redux
@@ -123,8 +125,27 @@ render() 方法。
   * 增加修改的难度。
 
 
+
+
+
 #### es6
 * 在使用 JavaScript classes 时，你必须调用 super(); 方法才能在继承父类的子类中正确获取到类型的 this 。
 * 箭头函数中的this。词法作用域规则。https://github.com/zhengweikeng/blog/blob/master/posts/2016/%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E4%B8%ADthis%E7%9A%84%E7%94%A8%E6%B3%95.md
 * class的属性初始化器语法。  handleClick = () => {console.log('this is:', this); }
-* 
+
+
+
+#### flux架构
+* 基本
+  * View： 视图层
+  * Action（动作）：视图层发出的消息（比如mouseClick）
+  * Dispatcher（派发器）：用来接收Actions、执行回调函数
+  * Store（数据层）：用来存放应用的状态，一旦发生变动，就提醒Views要更新页面
+
+* 单向数据流
+  * 用户访问 View
+  * View 发出用户的 Action
+  * Dispatcher 收到 Action，要求 Store 进行相应的更新
+  * Store 更新后，发出一个"change"事件
+  * View 收到"change"事件后，更新页面
+
