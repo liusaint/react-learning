@@ -98,6 +98,24 @@ render() 方法。
   * 纯函数非常“靠谱”，执行一个纯函数你不用担心它会干什么坏事，它不会产生不可预料的行为，也不会对外部产生影响。利于调试，测试。
   * 导出模块加括号与不加括号的区别。
   * smart与dumb
+  * 组件的函数写法与class写法。
+  * 尽管 key 看起来像是 props 的一部分，可是事实上我们无法通过 this.props.key 获取到 key 的值。React 会自动的在判断元素更新时使用 key ，而组件自己是无法获取到 key 的。
+  * 数据自顶向下流动。数据提升。
+　* 通过 bind 方式向监听函数传参，在类组件中定义的监听函数，事件对象 e 要排在所传递参数的后面
+* 使用这个语法有个问题就是每次 LoggingButton 渲染的时候都会创建一个不同的回调函数。在大多数情况下，这没有问题。然而如果这个回调函数作为一个属性值传入低阶组件，这些组件可能会进行额外的重新渲染。我们通常建议在构造函数中绑定或使用属性初始化器语法来避免这类性能问题。
+  * jsx与&&运算符。{unreadMessages.length > 0 && <h1>haha</h1>}
+  * 组件的 render 方法返回 null 并不会影响该组件生命周期方法的回调。例如，componentWillUpdate 和 componentDidUpdate 依然可以被调用。
+  * Keys应该是稳定的，可预测的，且唯一的。
+  * key元素的key只有在它和它的兄弟节点对比时才有意义。放遍历的组件上而不是放组件里的细节上。
+  * 受控组件。在HTML当中，像<input>,<textarea>, 和 <select>这类表单元素会维持自身状态，并根据用户输入进行更新。但在React中，可变的状态通常保存在组件的状态属性中，并且只能用 setState(). 方法进行更新.
+我们通过使react变成一种单一数据源的状态来结合二者。React负责渲染表单的组件仍然控制用户后续输入时所发生的变化。相应的，其值由React控制的输入表单元素称为“受控组件”。
+* this.handleChange = this.handleChange.bind(this);  constructor中。
+* 在React中，<textarea>会用value属性来代替。
+* 事件。原生事件如onClick最好不要绑定在组件上。应该绑定在原生dom上，也就是在组件内部绑。否则只有从组件内部来调用才会有效果。
+* event.preventDefault();显示调用
+* 当你有处理多个受控的input元素时，你可以通过给每个元素添加一个name属性，来让处理函数根据 event.target.name的值来选择做什么。this.setState({[name]: value });
+* 尽管有这些警告，如果你还是坚持要使用context，那么尽量将使用context的代码隔离到一小块地方并避免直接使用context API，这样以后API变更的时候更容易升级。
+* props甚至可以传入promise。
 
 
   #### redux
@@ -105,3 +123,8 @@ render() 方法。
   * 增加修改的难度。
 
 
+#### es6
+* 在使用 JavaScript classes 时，你必须调用 super(); 方法才能在继承父类的子类中正确获取到类型的 this 。
+* 箭头函数中的this。词法作用域规则。https://github.com/zhengweikeng/blog/blob/master/posts/2016/%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E4%B8%ADthis%E7%9A%84%E7%94%A8%E6%B3%95.md
+* class的属性初始化器语法。  handleClick = () => {console.log('this is:', this); }
+* 
