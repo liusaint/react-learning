@@ -136,6 +136,7 @@ render() 方法。
 
 
 #### flux架构
+跟mvc架构是同一类东西。
 * 基本
   * View： 视图层
   * Action（动作）：视图层发出的消息（比如mouseClick）
@@ -149,3 +150,19 @@ render() 方法。
   * Store 更新后，发出一个"change"事件
   * View 收到"change"事件后，更新页面
 
+https://www.zhihu.com/question/33864532
+
+* Dispatcher 只能有一个，而且是全局的。
+
+
+### controller与model界限在哪里
+
+* React 本身只涉及UI层。类似蛮荒年代的html做的事？
+* Redux 规定， 一个 State 对应一个 View。只要 State 相同，View 就相同。你知道 State，就知道 View 是什么样。纯函数？
+* payload
+* Reducer 函数最重要的特征是，它是一个纯函数。不得改写参数 不能调用系统 I/O 的API 不能调用Date.now()或者Math.random()等不纯的方法，因为每次会得到不一样的结果。
+* 就可以保证同样的State，必定得到同样的 View。但也正因为这一点，Reducer 函数里面不能改变 State，必须返回一个全新的对象。
+
+* reudx
+* 最终，为了把 action 和 state 串起来，开发一些函数，这就是 reducer。
+* 多个reducer
