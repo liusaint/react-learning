@@ -166,3 +166,9 @@ https://www.zhihu.com/question/33864532
 * reudx
 * 最终，为了把 action 和 state 串起来，开发一些函数，这就是 reducer。
 * 多个reducer
+
+
+
+* mapStateToProps相当于自助地从state中获取信息。要哪些拿哪些。
+* 变成高阶组件之后context中获取数据和修改及订阅的过程都放到了connect组件中。
+* mapDispatchToProps相当于写好自已上级的事件。传入dispatch。告诉高级组件，本组件中有哪些要修改state的操作。
