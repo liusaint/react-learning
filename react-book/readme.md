@@ -9,3 +9,11 @@
 jsx可以方便地转换成native或其他非dom结构。
 
 9.这些 on* 的事件监听只能用在普通的 HTML 的标签上，而不能用在组件标签上
+
+20.有朋友对 Virtual-DOM 策略比较感兴趣的话，可以参考这篇博客：深度剖析：如何实现一个 Virtual DOM 算法 。https://github.com/livoras/blog/issues/13
+
+ref在componentDidMount后可以使用。能不用 ref 就不用。多余的是dom操作是代码中的噪声。
+
+props.children 和容器类组件以及类比vue中的slot.
+
+高阶组件内部的包装组件和被包装组件之间通过 props 传递数据。
