@@ -17,3 +17,6 @@ ref在componentDidMount后可以使用。能不用 ref 就不用。多余的是d
 props.children 和容器类组件以及类比vue中的slot.
 
 高阶组件内部的包装组件和被包装组件之间通过 props 传递数据。
+
+
+props传入方法之。。可以直接传入一个对象。<WrappedComponent {...stateProps} />   大型项目中的reducer怎么写的？要把那么复杂的层级关系都写在action的修改中吗。
