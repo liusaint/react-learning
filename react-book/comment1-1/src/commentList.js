@@ -14,7 +14,7 @@ class CommentList extends Component {
 	  	var comments = this.props.comments;
 	    return (
 	    	<ul>
-	    	{comments.map((comment)=><Comment key={comment.time} comment={comment}></Comment>)}
+	    	{comments.map((comment)=><Comment key={comment.time} comment={comment} onDelComment={this.props.onDelComment}></Comment>)}
 	    	</ul>
 	    );
   	}

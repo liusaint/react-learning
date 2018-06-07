@@ -32,11 +32,14 @@ class Comment extends Component {
     }
   	render() {
 	  	var comment = this.props.comment;
+	  	//注意onClick={a()},会自动执行a()。this.props.onDelComment.bind(this,comment)
+	  	//props中的事件可以一直传递下去，不过要一层一层地写
 	    return (
 	    	<li>
 	    		{comment.user}:{comment.content}
 	    		<br/>
 	    		{this.state.showTime}
+	    		<button onClick={this.props.onDelComment.bind(this,comment)}>del</button>
 	    	</li>
 	    );
   	}

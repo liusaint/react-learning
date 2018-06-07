@@ -118,6 +118,8 @@ render() 方法。
 * props甚至可以传入promise。
 * router:http://www.ruanyifeng.com/blog/2016/05/react_router.html
   * onEnter钩子还可以用来做认证。
+* 注意onClick={a()},会自动执行a()。this.props.onDelComment.bind(this,comment)
+*　props中的事件可以一直传递下去，不过要一层一层地写
 
 
   #### redux
