@@ -31,9 +31,11 @@ class CommentForm extends Component {
 				user,
 				content
 			} = this.state;
+			var time = new Date().getTime();
 			this.props.onSubmit({
 				user,
-				content
+				content,
+				time
 			});
 			this.setState({
 				content: ''

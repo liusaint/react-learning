@@ -18,7 +18,7 @@ class CommentApp extends Component {
 			comments:comments
 		})
 	}
-	handleSubmit(comment){
+	handleSubmit(comment){		
 		this.state.comments.push(comment);
 		this.setState({comments:this.state.comments});
 		localStorage.setItem('comments',JSON.stringify(this.state.comments));
