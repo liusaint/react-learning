@@ -4,7 +4,8 @@ class Comment extends Component {
 	constructor(){
 		super();
 		this.state = {
-			showTime:''
+			showTime:'',
+			showContent:'',
 		}
 	}
 	componentWillMount(){
@@ -30,13 +31,28 @@ class Comment extends Component {
             showTime: showTime
         });
     }
+    dealContent(){
+    	
+        var content = this.props.comment.content;
+
+        content = content
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;")
+            .replace(/`([\S\s]+?)`/g, '<code>$1</code>');
+
+        return content;
+
+    }
   	render() {
 	  	var comment = this.props.comment;
 	  	//注意onClick={a()},会自动执行a()。this.props.onDelComment.bind(this,comment)
 	  	//props中的事件可以一直传递下去，不过要一层一层地写
 	    return (
 	    	<li>
-	    		{comment.user}:{comment.content}
+	    		{comment.user}: <span dangerouslySetInnerHTML={{ __html: this.dealContent()}}></span>
 	    		<br/>
 	    		{this.state.showTime}
 	    		<button onClick={this.props.onDelComment.bind(this,comment)}>del</button>
