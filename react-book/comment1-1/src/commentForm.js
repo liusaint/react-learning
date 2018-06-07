@@ -11,23 +11,26 @@ class CommentForm extends Component {
 		}
 	}
 
-handleUserChange(e){
-	this.setState({
-		user:e.target.value
-	})
-}
-handleContentChange(e){
-	this.setState({
-		content:e.target.value
-	})
-}
-handleSubmit(){
-	if(this.props.onSubmit){
-		const {user,content} = this.state;
-		this.props.onSubmit({user,content});
+	handleUserChange(e){
+		this.setState({
+			user:e.target.value
+		})
 	}
-	this.setState({content:''});
-}
+	handleContentChange(e){
+		this.setState({
+			content:e.target.value
+		})
+	}
+	handleSubmit(){
+		if(this.props.onSubmit){
+			const {user,content} = this.state;
+			this.props.onSubmit({user,content});
+		}
+		this.setState({content:''});
+	}
+	componentDidMount (){
+		this.input.focus();
+	}
 
 	render() {
 		return (
@@ -36,7 +39,7 @@ handleSubmit(){
 					user: <input type="text" onChange={this.handleUserChange.bind(this)}  value={this.state.user} />
 				</div>
 				<div className="form-group">
-					content: <input type="text"  onChange={this.handleContentChange.bind(this)}  value={this.state.content} />
+					content: <input type="text" ref={(input=>this.input = input)} onChange={this.handleContentChange.bind(this)}  value={this.state.content} />
 				</div>
 				<div className="form-group">
 					<input type="submit" value="submit" onClick={this.handleSubmit.bind(this)}/>
