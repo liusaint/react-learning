@@ -11,6 +11,10 @@ class CommentForm extends Component {
 		}
 	}
 
+	componentWillMount(){
+		var user = localStorage.getItem('user')||'';
+		this.setState({user})
+	}
 	handleUserChange(e){
 		this.setState({
 			user:e.target.value
@@ -22,11 +26,20 @@ class CommentForm extends Component {
 		})
 	}
 	handleSubmit(){
-		if(this.props.onSubmit){
-			const {user,content} = this.state;
-			this.props.onSubmit({user,content});
+		if (this.props.onSubmit) {
+			const {
+				user,
+				content
+			} = this.state;
+			this.props.onSubmit({
+				user,
+				content
+			});
+			this.setState({
+				content: ''
+			});
+			localStorage.setItem('user', user);
 		}
-		this.setState({content:''});
 	}
 	componentDidMount (){
 		this.input.focus();

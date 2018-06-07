@@ -11,9 +11,17 @@ class CommentApp extends Component {
 			comments:[]
 		}
 	}
+	componentWillMount(){
+		var commentsStr = localStorage.getItem('comments');
+		var comments = (commentsStr && JSON.parse(commentsStr))||[];
+		this.setState({
+			comments:comments
+		})
+	}
 	handleSubmit(comment){
 		this.state.comments.push(comment);
 		this.setState({comments:this.state.comments});
+		localStorage.setItem('comments',JSON.stringify(this.state.comments));
 	}
 	render() {
 	    return (
