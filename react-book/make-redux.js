@@ -67,10 +67,42 @@ function createStore(state, stateChanger) {
 		}
 }
 
-var store = createStore(appState,stateChanger);
+var store = createStore(a,stateChanger);
 
 store.subscribe(()=>renderApp(store.getState()));
 store.dispatch({
 	type:'UPDATA_CONTENT',
 	content:'content1'
 })
+
+
+// part3 共享状态减少渲染
+
+;
+(function() {
+	function renderApp(app,oldApp={}) {
+		if(app == oldApp){
+			return;
+		}
+		console.log('render app');
+		renderTitle(app.title);
+		renderContent(app.content)
+	}
+
+	function renderTitle(title,oldTitle={}) {
+		if(title == oldTitle){
+			return;
+		}
+		console.log('render title' + title);
+
+	}
+
+	function renderContent(content,oldContent = {}) {
+		if(content == oldContent)
+		console.log('render content' + content);
+	}
+	//注意reducer是干嘛的
+	function reducer(state,stateChanger){
+
+	}
+})();
