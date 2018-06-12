@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Switch from './Switch.js';
 
 
 class Content extends Component {
@@ -28,9 +27,9 @@ class Content extends Component {
     }
   render() {
     return (
-      <div className="Content" style={{color:this.state.themeColor}}>
-      	内容
-         <Switch></Switch>
+      <div className="Content" > 
+         <button style={{color:this.state.themeColor}}>red</button>
+         <button style={{color:this.state.themeColor}}>blue</button>
       </div>
     );
   }
