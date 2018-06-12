@@ -15,7 +15,7 @@ import createStore from './react-redux.js';
 			return state;
 		}
 		switch (action.type) {
-			case 'UPDATA_COLOR':
+			case 'UPDATE_COLOR':
 				state = {
 					...state,
 					color: action.color

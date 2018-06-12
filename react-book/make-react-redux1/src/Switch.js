@@ -21,15 +21,26 @@ class Content extends Component {
             store
         } = this.context;
         const state = store.getState();
+        console.log(state.color);
         this.setState({
             themeColor: state.color
         });
     }
+    handleClick(color){    	
+    	const {
+            store
+        } = this.context;
+        store.dispatch({
+        	action:'UPDATE_COLOR',
+        	color:color
+        })
+        this._updateThemeColor();
+    }
   render() {
     return (
       <div className="Content" > 
-         <button style={{color:this.state.themeColor}}>red</button>
-         <button style={{color:this.state.themeColor}}>blue</button>
+         <button onClick={this.handleClick.bind(this,'red')} style={{color:this.state.themeColor}}>red</button>
+         <button onClick={this.handleClick.bind(this,'blue')}  style={{color:this.state.themeColor}}>blue</button>
       </div>
     );
   }
