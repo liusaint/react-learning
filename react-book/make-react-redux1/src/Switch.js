@@ -21,7 +21,6 @@ class Content extends Component {
             store
         } = this.context;
         const state = store.getState();
-        console.log(state.color);
         this.setState({
             themeColor: state.color
         });
@@ -30,8 +29,9 @@ class Content extends Component {
     	const {
             store
         } = this.context;
+
         store.dispatch({
-        	action:'UPDATE_COLOR',
+        	type:'UPDATE_COLOR',
         	color:color
         })
         this._updateThemeColor();

@@ -22,6 +22,7 @@ import createStore from './react-redux.js';
 				}
 				break;
 		}
+
 		return state;
 	}
 
