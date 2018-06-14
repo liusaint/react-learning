@@ -1,37 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Switch from './Switch.js';
+import connect from './react-redux.js';
 
 
 class Content extends Component {
-	static contextTypes = {
-		store:PropTypes.object
-	}
-	constructor() {
-        super()
-        this.state = {
-            themeColor: ''
-        }
-    }
-    componentWillMount() {
-        this._updateThemeColor();
-        this.context.store.subscribe(()=>{
-          this._updateThemeColor();
-        })
-    }
 
-    _updateThemeColor() {
-        const {
-            store
-        } = this.context;
-        const state = store.getState();
-        this.setState({
-            themeColor: state.color
-        });
-    }
+	constructor() {
+    super()
+  }
+
   render() {
     return (
-      <div className="Content" style={{color:this.state.themeColor}}>
+      <div className="Content" style={{color:this.props.color}}>
       	内容
          <Switch></Switch>
       </div>
@@ -39,4 +20,4 @@ class Content extends Component {
   }
 }
 
-export default Content;
+export default connect(Content);

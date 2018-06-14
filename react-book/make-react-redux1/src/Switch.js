@@ -1,32 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import connect from './react-redux.js';
 
 
 class Switch extends Component {
-	static contextTypes = {
-		store:PropTypes.object
-	}
+
 	constructor() {
         super()
-        this.state = {
-            themeColor: ''
-        }
-    }
-    componentWillMount() {
-        this._updateThemeColor()
-        this.context.store.subscribe(()=>{
-            this._updateThemeColor();
-        })
-    }
-
-    _updateThemeColor() {
-        const {
-            store
-        } = this.context;
-        const state = store.getState();
-        this.setState({
-            themeColor: state.color
-        });
     }
     handleClick(color){    	
     	const {
@@ -42,11 +22,11 @@ class Switch extends Component {
   render() {
     return (
       <div className="Switch" > 
-         <button onClick={this.handleClick.bind(this,'red')} style={{color:this.state.themeColor}}>red</button>
-         <button onClick={this.handleClick.bind(this,'blue')}  style={{color:this.state.themeColor}}>blue</button>
+         <button onClick={this.handleClick.bind(this,'red')} style={{color:this.props.color}}>red</button>
+         <button onClick={this.handleClick.bind(this,'blue')}  style={{color:this.props.color}}>blue</button>
       </div>
     );
   }
 }
 
-export default Switch;
+export default connect(Switch);

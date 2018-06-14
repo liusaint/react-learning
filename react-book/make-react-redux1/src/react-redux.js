@@ -1,65 +1,44 @@
+import React, { Component } from 'react';
 
-	function createStore(reducer) {
-		var state = null;
-		var listeners = [];
-		var dispatch = (action) => {
-			state = reducer(state, action);
-			listeners.map(listener => listener());
-		}
-		var subscribe = listener => listeners.push(listener);
-		var getState = () => state;
-		dispatch({});
-		return {
-			getState,
-			subscribe,
-			dispatch
-		}
+import PropTypes from 'prop-types';
+// import createStore from './redux.js';
 
+
+export default function connect(Com){
+	class rCom extends Component{
+		static contextTypes = {
+			store:PropTypes.object
+		}
+		constructor(){
+			super();
+			this.state = {
+				allProps:'',
+			}			
+		}
+		componentWillMount(){
+			const store = this.context.store;
+
+			this.updateData();
+			//订阅更新。
+			store.subscribe(()=>{
+				this.updateData();
+			})
+		}
+		//更新数据。
+		updateData(){
+			const store = this.context.store;
+			this.setState({
+				allProps:{
+					...this.props,
+					...store.getState()
+				}
+			})
+		}
+		render(){
+			return (
+				<Com {...this.state.allProps}></Com>
+				)
+		}
 	}
-
-
-	//注意reducer是干嘛的
-	// function reducer(state, action) {
-	// 	if (!state) {
-	// 		state = {
-	// 			title: 'title',
-	// 			content: 'content'
-	// 		};
-	// 		return state;
-	// 	}
-	// 	switch (action.type) {
-	// 		case 'UPDATA_TITLE':
-	// 			state = {
-	// 				...state,
-	// 				title: action.title
-	// 			}
-
-	// 			break;
-	// 		case 'UPDATA_CONTENT':
-	// 			state = {
-	// 				...state,
-	// 				content: action.content
-	// 			}
-	// 			break;
-	// 	}
-	// 	return state;
-	// }
-
-
-
-	// var store = createStore(reducer);
-	// var oldAppState = store.getState();
-	// store.subscribe(() => {
-	// 	var newAppState = store.getState();
-	// 	renderApp(newAppState, oldAppState);
-	// 	oldAppState = newAppState;
-	// })
-	// store.dispatch({
-	// 	type: 'UPDATA_CONTENT',
-	// 	content: 'content2'
-	// })
-	// store.dispatch({
-	// 	type: 'UPDATA_CONTENT',
-	// 	content: 'content2'
-	// })
-export default createStore;
+	return rCom;
+}
