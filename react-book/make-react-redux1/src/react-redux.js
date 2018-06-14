@@ -1,4 +1,23 @@
 
+	function createStore(reducer) {
+		var state = null;
+		var listeners = [];
+		var dispatch = (action) => {
+			state = reducer(state, action);
+			listeners.map(listener => listener());
+		}
+		var subscribe = listener => listeners.push(listener);
+		var getState = () => state;
+		dispatch({});
+		return {
+			getState,
+			subscribe,
+			dispatch
+		}
+
+	}
+
+
 	//注意reducer是干嘛的
 	// function reducer(state, action) {
 	// 	if (!state) {
@@ -26,23 +45,6 @@
 	// 	return state;
 	// }
 
-	function createStore(reducer) {
-		var state = null;
-		var listeners = [];
-		var dispatch = (action) => {
-			state = reducer(state, action);
-			listeners.map(listener => listener());
-		}
-		var subscribe = listener => listeners.push(listener);
-		var getState = () => state;
-		dispatch({});
-		return {
-			getState,
-			subscribe,
-			dispatch
-		}
-
-	}
 
 
 	// var store = createStore(reducer);

@@ -14,7 +14,10 @@ class Content extends Component {
         }
     }
     componentWillMount() {
-        this._updateThemeColor()
+        this._updateThemeColor();
+        this.context.store.subscribe(()=>{
+          this._updateThemeColor();
+        })
     }
 
     _updateThemeColor() {

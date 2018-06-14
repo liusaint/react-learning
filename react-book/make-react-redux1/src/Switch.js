@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 
-class Content extends Component {
+class Switch extends Component {
 	static contextTypes = {
 		store:PropTypes.object
 	}
@@ -14,6 +14,9 @@ class Content extends Component {
     }
     componentWillMount() {
         this._updateThemeColor()
+        this.context.store.subscribe(()=>{
+            this._updateThemeColor();
+        })
     }
 
     _updateThemeColor() {
@@ -34,11 +37,11 @@ class Content extends Component {
         	type:'UPDATE_COLOR',
         	color:color
         })
-        this._updateThemeColor();
+        
     }
   render() {
     return (
-      <div className="Content" > 
+      <div className="Switch" > 
          <button onClick={this.handleClick.bind(this,'red')} style={{color:this.state.themeColor}}>red</button>
          <button onClick={this.handleClick.bind(this,'blue')}  style={{color:this.state.themeColor}}>blue</button>
       </div>
@@ -46,4 +49,4 @@ class Content extends Component {
   }
 }
 
-export default Content;
+export default Switch;
