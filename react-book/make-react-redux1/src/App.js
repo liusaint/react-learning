@@ -3,7 +3,7 @@ import './App.css';
 import Header from './Header.js';
 import Content from './Content.js';
 import PropTypes from 'prop-types';
-import createStore from './react-redux.js';
+import createStore from './redux.js';
 
 
 	//注意reducer是干嘛的
