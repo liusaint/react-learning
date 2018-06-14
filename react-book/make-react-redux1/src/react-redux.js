@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 // import createStore from './redux.js';
 
 
-export default function connect(Com){
+export default function connect(Com,mapStateToProps,mapDispatchToProps){
 	class rCom extends Component{
 		static contextTypes = {
 			store:PropTypes.object
@@ -27,10 +27,14 @@ export default function connect(Com){
 		//更新数据。
 		updateData(){
 			const store = this.context.store;
+			var state = store.getState();
+			const mapState = mapStateToProps?mapStateToProps(state):state;
+			const mapDispatch = mapStateToProps?mapDispatchToProps(store.dispatch):{};
 			this.setState({
 				allProps:{
 					...this.props,
-					...store.getState()
+					...mapState,
+					...mapDispatch
 				}
 			})
 		}
