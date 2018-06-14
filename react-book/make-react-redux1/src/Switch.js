@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import connect from './react-redux.js';
+import {connect} from './react-redux.js';
 
 
 class Switch extends Component {
@@ -9,11 +9,18 @@ class Switch extends Component {
         super()
     }
 
+    static propTypes = {
+        themeColor:PropTypes.string
+    }
+    handleChange(color){
+        this.props.onColorChange(color);
+    }
+
   render() {
     return (
       <div className="Switch" > 
-         <button onClick={this.props.onColorChange.bind(null,'red')} style={{color:this.props.color}}>red</button>
-         <button onClick={this.props.onColorChange.bind(null,'blue')}  style={{color:this.props.color}}>blue</button>
+         <button onClick={this.handleChange.bind(this,'red')} style={{color:this.props.themeColor}}>red</button>
+         <button onClick={this.handleChange.bind(this,'blue')}  style={{color:this.props.themeColor}}>blue</button>
       </div>
     );
   }
@@ -31,10 +38,10 @@ function mapDispatchToProps(dispatch) {
         }
     }
 }
-
+//　mapState其实也可以看作是作了一个映射。将store中的key改成我们的key。
 function mapStateToProps(state){
     return {
-        color:state.color
+        themeColor:state.color
     }
 }
 

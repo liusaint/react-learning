@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 // import createStore from './redux.js';
 
 
-export default function connect(Com,mapStateToProps,mapDispatchToProps){
+function connect(Com,mapStateToProps,mapDispatchToProps){
 	class rCom extends Component{
 		static contextTypes = {
 			store:PropTypes.object
@@ -28,8 +28,9 @@ export default function connect(Com,mapStateToProps,mapDispatchToProps){
 		updateData(){
 			const store = this.context.store;
 			var state = store.getState();
-			const mapState = mapStateToProps?mapStateToProps(state):state;
-			const mapDispatch = mapStateToProps?mapDispatchToProps(store.dispatch):{};
+			const mapState = mapStateToProps?mapStateToProps(state):{};
+			const mapDispatch = mapDispatchToProps?mapDispatchToProps(store.dispatch):{};
+			//也注意下面几个顺序
 			this.setState({
 				allProps:{
 					...this.props,
@@ -45,4 +46,28 @@ export default function connect(Com,mapStateToProps,mapDispatchToProps){
 		}
 	}
 	return rCom;
+}
+
+
+class Provider extends Component{
+	static childContextTypes = {
+		store: PropTypes.object
+	}
+	getChildContext() {
+		return {
+			store:this.props.store||{}
+		}
+	}
+	render(){
+		return(
+			<div>
+				{this.props.children}
+			</div>
+		)
+	}
+}
+
+export {
+	Provider,
+	connect
 }

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import connect from './react-redux.js';
+import {connect} from './react-redux.js';
 
 
 class Header extends Component {
-
+    static propTypes = {
+        color:PropTypes.string
+    }
     constructor() {
         super()
     }
@@ -17,4 +19,12 @@ class Header extends Component {
         );
     }
 }
-export default connect(Header);
+
+function mapStateToProps(state){
+  return {
+    color:state.color
+  }
+}
+
+
+export default connect(Header,mapStateToProps);

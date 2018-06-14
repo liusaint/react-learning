@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Switch from './Switch.js';
-import connect from './react-redux.js';
+import {connect} from './react-redux.js';
 
 
 class Content extends Component {
 
+  static propTypes = {
+    color:PropTypes.string
+  }
+
 	constructor() {
     super()
   }
+
 
   render() {
     return (
@@ -20,4 +25,10 @@ class Content extends Component {
   }
 }
 
-export default connect(Content);
+function mapStateToProps(state){
+  return {
+    color:state.color
+  }
+}
+
+export default connect(Content,mapStateToProps);
