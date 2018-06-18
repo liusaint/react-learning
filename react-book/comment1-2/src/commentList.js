@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
 import Comment from './comment.js';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
 class CommentList extends Component {
 	static defaultProps = {
@@ -20,4 +21,20 @@ class CommentList extends Component {
   	}
 }
 
-export default CommentList;
+function mapStateToProps(state){
+	return {
+		comments:state.comments,
+	}
+}
+function mapDispatchToProps(dispatch){
+	return {
+		onDelComment:function(comment){
+			dispatch({
+				type:'DEL_COMMENT',
+				comment:comment,
+			})
+		}
+	}
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(CommentList);
