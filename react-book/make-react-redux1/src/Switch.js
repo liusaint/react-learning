@@ -1,49 +1,50 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import {connect} from './react-redux.js';
 
 
-class Content extends Component {
-	static contextTypes = {
-		store:PropTypes.object
-	}
+class Switch extends Component {
+
 	constructor() {
         super()
-        this.state = {
-            themeColor: ''
-        }
-    }
-    componentWillMount() {
-        this._updateThemeColor()
     }
 
-    _updateThemeColor() {
-        const {
-            store
-        } = this.context;
-        const state = store.getState();
-        this.setState({
-            themeColor: state.color
-        });
+    static propTypes = {
+        themeColor:PropTypes.string
     }
-    handleClick(color){    	
-    	const {
-            store
-        } = this.context;
+    handleChange(color){
+        this.props.onColorChange(color);
+    }
 
-        store.dispatch({
-        	type:'UPDATE_COLOR',
-        	color:color
-        })
-        this._updateThemeColor();
-    }
   render() {
     return (
-      <div className="Content" > 
-         <button onClick={this.handleClick.bind(this,'red')} style={{color:this.state.themeColor}}>red</button>
-         <button onClick={this.handleClick.bind(this,'blue')}  style={{color:this.state.themeColor}}>blue</button>
+      <div className="Switch" > 
+         <button onClick={this.handleChange.bind(this,'red')} style={{color:this.props.themeColor}}>red</button>
+         <button onClick={this.handleChange.bind(this,'blue')}  style={{color:this.props.themeColor}}>blue</button>
       </div>
     );
   }
 }
 
-export default Content;
+
+
+function mapDispatchToProps(dispatch) {
+    return {
+        onColorChange:(color) => {
+            dispatch({
+                type: 'UPDATE_COLOR',
+                color: color
+            })
+        }
+    }
+}
+//　mapState其实也可以看作是作了一个映射。将store中的key改成我们的key。
+function mapStateToProps(state){
+    return {
+        themeColor:state.color
+    }
+}
+
+
+
+export default connect(Switch,mapStateToProps,mapDispatchToProps);
