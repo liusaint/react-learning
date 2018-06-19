@@ -16,6 +16,12 @@ function reducer(state,action){
 		return state;
 	}
 	switch (action.type) {
+		case 'INIT_COMMENTS':
+		state = {
+			...state,
+			comments:[...action.comments]
+		}
+		break;
 		case 'ADD_COMMENT':
 		state = {
 			...state,

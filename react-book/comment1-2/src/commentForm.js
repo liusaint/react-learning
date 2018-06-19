@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 
 
 class CommentForm extends Component {
@@ -64,4 +65,22 @@ class CommentForm extends Component {
 	}
 }
 
-export default CommentForm;
+function mapStateToProps(state){
+	return {};
+}
+function mapDispatchToProps(dispatch){
+	return {
+		onSubmit:function(comment){
+			dispatch({
+				type:'ADD_COMMENT',
+				comment
+			})
+		}
+	}
+}
+
+
+
+
+//不用层层传递了，直接在form中修改。
+export default connect(mapStateToProps,mapDispatchToProps)(CommentForm);
