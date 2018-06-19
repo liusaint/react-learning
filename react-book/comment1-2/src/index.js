@@ -29,11 +29,12 @@ function reducer(state,action){
 		}
 		break;
 		case 'DEL_COMMENT':
-		var delIndex = state.comments.indexOf(action.comment);
 
+		var delIndex = state.comments.indexOf(action.comment);
+		state.comments.splice(delIndex,1)
 		state = {
 			...state,
-			comments:[...state.comments.slice(delIndex,1)]
+			comments:[...state.comments]
 		}
 		break;
 
