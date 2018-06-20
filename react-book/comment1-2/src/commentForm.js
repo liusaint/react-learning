@@ -4,6 +4,10 @@ import {connect} from 'react-redux';
 
 class CommentForm extends Component {
 
+	static defaultProps = {
+		comments:[],
+	}
+
 	constructor(){
 		super();
 		this.state = {
@@ -33,16 +37,25 @@ class CommentForm extends Component {
 				content
 			} = this.state;
 			var time = new Date().getTime();
-			this.props.onSubmit({
+			var comment = {
 				user,
 				content,
 				time
-			});
+			};
+
+			this.props.onSubmit(comment);
+
 			this.setState({
 				content: ''
 			});
 			localStorage.setItem('user', user);
 		}
+
+		//这样直接push没有问题吗？如何优雅的操作props中的数据。
+		//redux是同步还是异步？
+		this.props.comments.push(comment);
+		localStorage.setItem('comments',JSON.stringify(this.props.comments));
+
 	}
 	componentDidMount (){
 		this.input.focus();
@@ -66,7 +79,9 @@ class CommentForm extends Component {
 }
 
 function mapStateToProps(state){
-	return {};
+	return {
+		comments:state.comments
+	};
 }
 function mapDispatchToProps(dispatch){
 	return {

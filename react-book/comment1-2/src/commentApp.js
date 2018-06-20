@@ -5,35 +5,11 @@ import CommentForm from './commentForm.js';
 import CommentList from './commentList.js';
 
 class CommentApp extends Component {
-	constructor(){
-		super();
-		this.state = {
-			comments:[]
-		}
-	}
-	componentWillMount(){
-		var commentsStr = localStorage.getItem('comments');
-		var comments = (commentsStr && JSON.parse(commentsStr))||[];
-		this.setState({
-			comments:comments
-		})
-	}
-	handleSubmit(comment){		
-		this.state.comments.push(comment);
-		this.setState({comments:this.state.comments});
-		localStorage.setItem('comments',JSON.stringify(this.state.comments));
-	}
-	delComment(comment){
-		var index = this.state.comments.indexOf(comment);
-		this.state.comments.splice(index,1);
-		this.setState({comments:this.state.comments});
-		localStorage.setItem('comments',JSON.stringify(this.state.comments));
-	}
 	render() {
 	    return (
 			<div>
-				<CommentForm onSubmit={this.handleSubmit.bind(this)}></CommentForm>
-				<CommentList onDelComment={this.delComment.bind(this)} comments={this.state.comments}></CommentList>
+				<CommentForm></CommentForm>
+				<CommentList></CommentList>
 			</div>
 	    );
 	}
