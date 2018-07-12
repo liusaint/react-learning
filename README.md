@@ -175,3 +175,11 @@ https://www.zhihu.com/question/33864532
 * 变成高阶组件之后context中获取数据和修改及订阅的过程都放到了connect组件中。
 * mapDispatchToProps相当于写好自已上级的事件。传入dispatch。告诉高级组件，本组件中有哪些要修改state的操作。
 * 所有的 Dumb 组件都放在 components/ 目录下，所有的 Smart 的组件都放在 containers/ 目录下，这是一种约定俗成的规则。
+
+
+
+
+### redux
+* Reducer Enhancers
+  * 作为一个函数，接收 reducer 作为参数并返回一个新的 reducer，这个新的 reducer 可以处理新的 action，或者维护更多的 state，亦或者将它无法处理的 action 委托给原始的 reducer 处理。combineReducers()就是enhancers。 
+* middleware 
